@@ -1,26 +1,26 @@
 @rem ========================================================================================
 @rem
-@rem	º¸¾È ÀÚ°¡Á¡°Ë ÇÁ·Î±×·¥
+@rem	ë³´ì•ˆ ìžê°€ì ê²€ í”„ë¡œê·¸ëž¨
 @rem
-@rem	°ø±º ±º¼ö»ç·ÉºÎ ±º¼öÀü»ê¼Ò Á¤º¸º¸È£½Ç
-@rem	ÇÏ»ç Á¤ÅÃÇö, ÀÏº´ ÇÑÀç½Â
+@rem	ê³µêµ° êµ°ìˆ˜ì‚¬ë ¹ë¶€ êµ°ìˆ˜ì „ì‚°ì†Œ ì •ë³´ë³´í˜¸ì‹¤
+@rem	í•˜ì‚¬ ì •íƒí˜„, ì¼ë³‘ í•œìž¬ìŠ¹
 @rem
 @rem ----------------------------------------------------------------------------------------	
 @rem	install.bat
 @rem	
-@rem	³× °³ÀÇ ÆÄÀÏÀ» µå¶øÇÑ´Ù. 
-@rem	1. keyword_threat.txt : °Ë»öÇÏ·Á´Â Å°¿öµå¸¦ ÁöÁ¤
-@rem	2. keyword_bypass.txt : °Ë»öÇÏÁö ¾ÊÀ» °æ·Î¸¦ ÁöÁ¤
-@rem	3. script.ps1	      : ÆÄÀÏ °Ë»ö ½ºÅ©¸³Æ®
-@rem	4. linkInstall.ps1    : ¿ìÅ¬¸¯ À¯Æ¿¸®Æ¼ ¼³Ä¡
+@rem	ë„¤ ê°œì˜ íŒŒì¼ì„ ë“œëží•œë‹¤. 
+@rem	1. keyword_threat.txt : ê²€ìƒ‰í•˜ë ¤ëŠ” í‚¤ì›Œë“œë¥¼ ì§€ì •
+@rem	2. keyword_bypass.txt : ê²€ìƒ‰í•˜ì§€ ì•Šì„ ê²½ë¡œë¥¼ ì§€ì •
+@rem	3. script.ps1	      : íŒŒì¼ ê²€ìƒ‰ ìŠ¤í¬ë¦½íŠ¸
+@rem	4. linkInstall.ps1    : ìš°í´ë¦­ ìœ í‹¸ë¦¬í‹° ì„¤ì¹˜
 @rem
 @rem
-@rem	º°µµÀÇ batÆÄÀÏ·Î ¾Æ·¡ ¸í·É¾î¸¦ ½ÇÇàÇÏ¸é µÈ´Ù:
+@rem	ë³„ë„ì˜ batíŒŒì¼ë¡œ ì•„ëž˜ ëª…ë ¹ì–´ë¥¼ ì‹¤í–‰í•˜ë©´ ëœë‹¤:
 @rem	powershell -File "C:\Program Files\Geni\Geniacn\Plugin\LCCertSecretScanner\script.ps1"
 @rem
 @rem
-@rem	¿ìÅ¬¸¯ À¯Æ¿¸®Æ¼:
-@rem    Shell:SendTo µð·ºÅä¸®¿¡ ÆÄÀÏÀ» »ý¼ºÇÑ´Ù.
+@rem	ìš°í´ë¦­ ìœ í‹¸ë¦¬í‹°:
+@rem    Shell:SendTo ë””ë ‰í† ë¦¬ì— íŒŒì¼ì„ ìƒì„±í•œë‹¤.
 @rem
 @rem
 @rem
@@ -30,118 +30,118 @@
 @echo off
 setlocal
 
-@rem ÆÄ¿ö½© ·ÎÄÃ¿¡¼­¸¸ ½ÇÇà Çã¿ë
+@rem íŒŒì›Œì‰˜ ë¡œì»¬ì—ì„œë§Œ ì‹¤í–‰ í—ˆìš©
 powershell -Command "Set-ExecutionPolicy RemoteSigned"
 
-@rem ÆÄÀÏ À§Ä¡ Á¤ÀÇ
+@rem íŒŒì¼ ìœ„ì¹˜ ì •ì˜
 set LCCERT_DIR="%ProgramFiles%\Geni\Genian\Plugin\LCCertSecretScanner"
 set FILE_THREAT=%LCCERT_DIR%\keyword_threat.txt
 set FILE_BYPASS=%LCCERT_DIR%\keyword_bypass.txt
-set FILE_RESULT="%USERPROFILE%\Desktop\"+$(Get-Date -Format "yyMMdd_HHmm")+"_ºñ¹Ð½ºÄµ°á°ú.csv"
+set FILE_RESULT="%USERPROFILE%\Desktop\"+$(Get-Date -Format "yyMMdd_HHmm")+"_ë¹„ë°€ìŠ¤ìº”ê²°ê³¼.csv"
 set SCRIPT_SEARCH=%LCCERT_DIR%\script.ps1
 set SCRIPT_UTILIT=%LCCERT_DIR%\utilInstall.ps1
 set POWERSHELL="%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe"
 
 mkdir %LCCERT_DIR%
 
-@rem 1.Ã£´Â ÆÄÀÏ
-echo ÀÛÀü> %FILE_THREAT%
+@rem 1.ì°¾ëŠ” íŒŒì¼
+echo ìž‘ì „> %FILE_THREAT%
 echo UFG>> %FILE_THREAT%
-echo ÈÆ·Ã>> %FILE_THREAT%
+echo í›ˆë ¨>> %FILE_THREAT%
 echo KRFE>> %FILE_THREAT%
-echo ºñ¹Ð>> %FILE_THREAT%
-echo ºñ¹®>> %FILE_THREAT%
-echo Áø¿µ>> %FILE_THREAT%
-echo ´ë¿Üºñ>> %FILE_THREAT%
+echo ë¹„ë°€>> %FILE_THREAT%
+echo ë¹„ë¬¸>> %FILE_THREAT%
+echo ì§„ì˜>> %FILE_THREAT%
+echo ëŒ€ì™¸ë¹„>> %FILE_THREAT%
 echo AFCCS>> %FILE_THREAT%
 echo C4I>> %FILE_THREAT%
 echo MSEL>> %FILE_THREAT%
-echo ÀÛ°è>> %FILE_THREAT%
-echo ÀÎ¿ø>> %FILE_THREAT%
-echo ±âÁö>> %FILE_THREAT%
-echo ¹æÈ£>> %FILE_THREAT%
-echo ±âÁö¹æ¾î>> %FILE_THREAT%
+echo ìž‘ê³„>> %FILE_THREAT%
+echo ì¸ì›>> %FILE_THREAT%
+echo ê¸°ì§€>> %FILE_THREAT%
+echo ë°©í˜¸>> %FILE_THREAT%
+echo ê¸°ì§€ë°©ì–´>> %FILE_THREAT%
 
 
-echo ¹æ¾î>> %FILE_THREAT%
-echo ÁøÁö>> %FILE_THREAT%
-echo °æ·Î>> %FILE_THREAT%
-echo Ä§Åõ>> %FILE_THREAT%
-echo ÀÎ·Â>> %FILE_THREAT%
-echo µ¿¿ø>> %FILE_THREAT%
-echo ¹èÆ²>> %FILE_THREAT%
-echo ¸®µë>> %FILE_THREAT%
+echo ë°©ì–´>> %FILE_THREAT%
+echo ì§„ì§€>> %FILE_THREAT%
+echo ê²½ë¡œ>> %FILE_THREAT%
+echo ì¹¨íˆ¬>> %FILE_THREAT%
+echo ì¸ë ¥>> %FILE_THREAT%
+echo ë™ì›>> %FILE_THREAT%
+echo ë°°í‹€>> %FILE_THREAT%
+echo ë¦¬ë“¬>> %FILE_THREAT%
 echo Battle>> %FILE_THREAT%
-echo Àü½Ã>> %FILE_THREAT%
-echo ºñ¹Ð¹øÈ£>> %FILE_THREAT%
-echo ÆÐ½º¿öµå>> %FILE_THREAT%
-echo °ü¸®±â·ÏºÎ>> %FILE_THREAT%
+echo ì „ì‹œ>> %FILE_THREAT%
+echo ë¹„ë°€ë²ˆí˜¸>> %FILE_THREAT%
+echo íŒ¨ìŠ¤ì›Œë“œ>> %FILE_THREAT%
+echo ê´€ë¦¬ê¸°ë¡ë¶€>> %FILE_THREAT%
 echo Password>> %FILE_THREAT%
-echo µµ¸é>> %FILE_THREAT%
-echo ¿ÏÆí¸íºÎ>> %FILE_THREAT%
-echo °¡³ª´Ù¸íºÎ>> %FILE_THREAT%
-echo Àü½ÃÁõÆí>> %FILE_THREAT%
-echo Àü½ÃÁõ¿ø>> %FILE_THREAT%
-echo Áõ¡¤Ã¢¼³>> %FILE_THREAT%
-echo Ã¢¼³>> %FILE_THREAT%
-echo ¼÷¿µ>> %FILE_THREAT%
-echo Àü½Ã¼ö¼Û>> %FILE_THREAT%
-echo Àü½Ãº¸±Þ>> %FILE_THREAT%
-echo Á¤º¸Åë½Åµ¿¿ø>> %FILE_THREAT%
-echo »ê¾÷µ¿¿ø¿î¿µ°èÈ¹¼­>> %FILE_THREAT%
-echo Ãæ¹«>> %FILE_THREAT%
-echo Àü½Ã±Ù·Î¼ÒÁý>> %FILE_THREAT%
-echo ±â¼úÀÎ·Âµ¿¿ø>> %FILE_THREAT%
-echo º´·Âµ¿¿ø>> %FILE_THREAT%
-echo ÆíÁ¦Ç¥>> %FILE_THREAT%
-echo Àü·«¼­>> %FILE_THREAT%
-echo °üÇÒºÎ´ëÀå>> %FILE_THREAT%
-echo ÀüÅõÀÓ¹«¼öÇàÃ¶>> %FILE_THREAT%
+echo ë„ë©´>> %FILE_THREAT%
+echo ì™„íŽ¸ëª…ë¶€>> %FILE_THREAT%
+echo ê°€ë‚˜ë‹¤ëª…ë¶€>> %FILE_THREAT%
+echo ì „ì‹œì¦íŽ¸>> %FILE_THREAT%
+echo ì „ì‹œì¦ì›>> %FILE_THREAT%
+echo ì¦Â·ì°½ì„¤>> %FILE_THREAT%
+echo ì°½ì„¤>> %FILE_THREAT%
+echo ìˆ™ì˜>> %FILE_THREAT%
+echo ì „ì‹œìˆ˜ì†¡>> %FILE_THREAT%
+echo ì „ì‹œë³´ê¸‰>> %FILE_THREAT%
+echo ì •ë³´í†µì‹ ë™ì›>> %FILE_THREAT%
+echo ì‚°ì—…ë™ì›ìš´ì˜ê³„íšì„œ>> %FILE_THREAT%
+echo ì¶©ë¬´>> %FILE_THREAT%
+echo ì „ì‹œê·¼ë¡œì†Œì§‘>> %FILE_THREAT%
+echo ê¸°ìˆ ì¸ë ¥ë™ì›>> %FILE_THREAT%
+echo ë³‘ë ¥ë™ì›>> %FILE_THREAT%
+echo íŽ¸ì œí‘œ>> %FILE_THREAT%
+echo ì „ëžµì„œ>> %FILE_THREAT%
+echo ê´€í• ë¶€ëŒ€ìž¥>> %FILE_THREAT%
+echo ì „íˆ¬ìž„ë¬´ìˆ˜í–‰ì² >> %FILE_THREAT%
 echo Battlebook>> %FILE_THREAT%
-echo ¹èÆ²ºÏ>> %FILE_THREAT%
-echo Àü½Ã>> %FILE_THREAT%
-echo ÀÜÀü°èÈ¹>> %FILE_THREAT%
-echo ÀÛÀü¿¹±Ô>> %FILE_THREAT%
-echo Áö»óÀÛÀü>> %FILE_THREAT%
-echo Áö»óÀÛÀü¿¹±Ô>> %FILE_THREAT%
+echo ë°°í‹€ë¶>> %FILE_THREAT%
+echo ì „ì‹œ>> %FILE_THREAT%
+echo ìž”ì „ê³„íš>> %FILE_THREAT%
+echo ìž‘ì „ì˜ˆê·œ>> %FILE_THREAT%
+echo ì§€ìƒìž‘ì „>> %FILE_THREAT%
+echo ì§€ìƒìž‘ì „ì˜ˆê·œ>> %FILE_THREAT%
 echo Pre-ATO>> %FILE_THREAT%
-echo ÀÛ°è5026>> %FILE_THREAT%
-echo ÀÛ°è5027>> %FILE_THREAT%
-echo ÀÛ°è5028>> %FILE_THREAT%
-echo ÀÛ°è5029>> %FILE_THREAT%
-echo ÀÛ°è5030>> %FILE_THREAT%
-echo ºÐ»ê¹èÄ¡>> %FILE_THREAT%
-echo ÀüÅõÁøÁö>> %FILE_THREAT%
-echo Ä§Åõ>> %FILE_THREAT%
-echo Åº¾àÇöÈ²>> %FILE_THREAT%
-echo °£Ã¸>> %FILE_THREAT%
-echo 3Áö´ë>> %FILE_THREAT%
-echo °æ°è>> %FILE_THREAT%
+echo ìž‘ê³„5026>> %FILE_THREAT%
+echo ìž‘ê³„5027>> %FILE_THREAT%
+echo ìž‘ê³„5028>> %FILE_THREAT%
+echo ìž‘ê³„5029>> %FILE_THREAT%
+echo ìž‘ê³„5030>> %FILE_THREAT%
+echo ë¶„ì‚°ë°°ì¹˜>> %FILE_THREAT%
+echo ì „íˆ¬ì§„ì§€>> %FILE_THREAT%
+echo ì¹¨íˆ¬>> %FILE_THREAT%
+echo íƒ„ì•½í˜„í™©>> %FILE_THREAT%
+echo ê°„ì²©>> %FILE_THREAT%
+echo 3ì§€ëŒ€>> %FILE_THREAT%
+echo ê²½ê³„>> %FILE_THREAT%
 echo KADIZ>> %FILE_THREAT%
-echo ¿î¿µ¿¹±Ô>> %FILE_THREAT%
-echo BLÅº>> %FILE_THREAT%
-echo ÇÇ¾Æ½Äº°>> %FILE_THREAT%
-echo È­»ý¹æÀÛÀü>> %FILE_THREAT%
-echo ´ë°ø¹æ¾îÀÛÀü>> %FILE_THREAT%
-echo ±âÁö°æ°èÀÛÀü>> %FILE_THREAT%
-echo Áö¿ª¹æ°ø>> %FILE_THREAT%
-echo ¹æ°øÀÛÀü>> %FILE_THREAT%
-echo Ã¶»õ°èÈ¹>> %FILE_THREAT%
-echo Àü½Ã°³ÀÎÇàµ¿ÀýÂ÷>> %FILE_THREAT%
-echo Ç×°ø±â°¡µ¿·ü>> %FILE_THREAT%
-echo Àü½ÃÀ¯·ù>> %FILE_THREAT%
+echo ìš´ì˜ì˜ˆê·œ>> %FILE_THREAT%
+echo BLíƒ„>> %FILE_THREAT%
+echo í”¼ì•„ì‹ë³„>> %FILE_THREAT%
+echo í™”ìƒë°©ìž‘ì „>> %FILE_THREAT%
+echo ëŒ€ê³µë°©ì–´ìž‘ì „>> %FILE_THREAT%
+echo ê¸°ì§€ê²½ê³„ìž‘ì „>> %FILE_THREAT%
+echo ì§€ì—­ë°©ê³µ>> %FILE_THREAT%
+echo ë°©ê³µìž‘ì „>> %FILE_THREAT%
+echo ì² ìƒˆê³„íš>> %FILE_THREAT%
+echo ì „ì‹œê°œì¸í–‰ë™ì ˆì°¨>> %FILE_THREAT%
+echo í•­ê³µê¸°ê°€ë™ë¥ >> %FILE_THREAT%
+echo ì „ì‹œìœ ë¥˜>> %FILE_THREAT%
 echo ATSP>> %FILE_THREAT%
-echo Àü½Ã¹ÎÇ×°ø>> %FILE_THREAT%
+echo ì „ì‹œë¯¼í•­ê³µ>> %FILE_THREAT%
 echo RHYTHM>> %FILE_THREAT%
-echo 1±Þ>> %FILE_THREAT%
-echo 2±Þ>> %FILE_THREAT%
-echo 3±Þ>> %FILE_THREAT%
-echo ´ë¿Üºñ>> %FILE_THREAT%
-echo ¥°±Þ>> %FILE_THREAT%
-echo ¥±±Þ>> %FILE_THREAT%
-echo ¥²±Þ>> %FILE_THREAT%
+echo 1ê¸‰>> %FILE_THREAT%
+echo 2ê¸‰>> %FILE_THREAT%
+echo 3ê¸‰>> %FILE_THREAT%
+echo ëŒ€ì™¸ë¹„>> %FILE_THREAT%
+echo â… ê¸‰>> %FILE_THREAT%
+echo â…¡ê¸‰>> %FILE_THREAT%
+echo â…¢ê¸‰>> %FILE_THREAT%
 
-@rem 2.¹«½ÃÇÒ °æ·Î
+@rem 2.ë¬´ì‹œí•  ê²½ë¡œ
 echo Adobe> %FILE_BYPASS%
 echo Eclipse>> %FILE_BYPASS%
 echo Program Files\Java>> %FILE_BYPASS%
@@ -150,7 +150,7 @@ echo Microsoft Visual Studio>> %FILE_BYPASS%
 echo C:\Windows\>> %FILE_BYPASS%
 
 
-@rem 3.°Ë»ö ÄÚµå µå¶ø
+@rem 3.ê²€ìƒ‰ ì½”ë“œ ë“œëž
 @rem $file -replace "(?m)^", "echo " -replace "(?m)$", ">> %SCRIPT_SEARCH%" -replace "\|", "^|"
 
 echo function Search([string]$path, [string]$searchfor, [string]$ignore)> %SCRIPT_SEARCH%
@@ -191,7 +191,7 @@ echo }>> %SCRIPT_SEARCH%
 echo $threat = synthesizeRegex(%LCCERT_DIR%+"\keyword_threat.txt")>> %SCRIPT_SEARCH%
 echo $bypass = synthesizeRegex(%LCCERT_DIR%+"\keyword_bypass.txt")>> %SCRIPT_SEARCH%
 echo $filename = %FILE_RESULT% >> %SCRIPT_SEARCH%
-echo "ÆÄÀÏ¸í,Å½ÁöÇ×¸ñ,ÆÄÀÏ°æ·Î" ^> $filename >> %SCRIPT_SEARCH%
+echo "íŒŒì¼ëª…,íƒì§€í•­ëª©,íŒŒì¼ê²½ë¡œ" ^> $filename >> %SCRIPT_SEARCH%
 
 echo if (!$args) { >> %SCRIPT_SEARCH%
 echo     Search C:\ $threat $bypass ^>^> $filename >> %SCRIPT_SEARCH%
@@ -204,13 +204,13 @@ echo    Search $args[0] $threat $bypass ^>^> $filename >> %SCRIPT_SEARCH%
 echo } >> %SCRIPT_SEARCH%
 
 
-@rem 4.¿ìÅ¬¸¯ À¯Æ¿¸®Æ¼ µå¶ø ¹× ½ÇÇà ÈÄ »èÁ¦
+@rem 4.ìš°í´ë¦­ ìœ í‹¸ë¦¬í‹° ë“œëž ë° ì‹¤í–‰ í›„ ì‚­ì œ
 echo $wsh = New-Object -comObject WScript.Shell > %SCRIPT_UTILIT%
 echo $path = [system.Environment]::GetFolderPath("SendTo") >> %SCRIPT_UTILIT%
-echo $link = $wsh.CreateShortcut("$path\º¸¾È ÀÚ°¡ Á¡°Ë.lnk") >> %SCRIPT_UTILIT%
+echo $link = $wsh.CreateShortcut("$path\ë³´ì•ˆ ìžê°€ ì ê²€.lnk") >> %SCRIPT_UTILIT%
 echo $link.TargetPath = %POWERSHELL% >> %SCRIPT_UTILIT%
 echo $link.Arguments  = '-File %SCRIPT_SEARCH%' >> %SCRIPT_UTILIT%
-echo $link.Description = "°ø±º ±º¼ö»ç º¸¾È ÀÚ°¡ Á¡°Ë À¯Æ¿¸®Æ¼" >> %SCRIPT_UTILIT%
+echo $link.Description = "ê³µêµ° êµ°ìˆ˜ì‚¬ ë³´ì•ˆ ìžê°€ ì ê²€ ìœ í‹¸ë¦¬í‹°" >> %SCRIPT_UTILIT%
 echo $link.WorkingDirectory = "%USERPROFILE%" >> %SCRIPT_UTILIT%
 echo $link.Save() >> %SCRIPT_UTILIT%
 
